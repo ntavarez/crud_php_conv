@@ -3,7 +3,7 @@ include '../config/conexao.php';
 
 $database = new BD();
 $db = $database->conexao();
-$stmt = $db->query("SELECT per_descricao FROM tab_perfil");
+$stmt = $db->query("SELECT per_codigo, per_descricao FROM tab_perfil");
 
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -50,7 +50,7 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
         input[type="text"],
         input[type="password"],
         input[type="login"],
-        option {
+        select, option {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -106,8 +106,8 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <select name="profile_id" id="profile">
             <option value="">--Opções--</option>
             <?php foreach ($usuarios as $usuario): ?>
-            <option value="<?= $usuario['per_cod']?>">
-                <?= htmlspecialchars($usuario['per_descricao']) ?>
+            <option value="<?= $usuario['per_codigo']?>">
+                <?= htmlspecialchars( $usuario['per_descricao'])?>
             </option>
             <?php endforeach; ?>
         </select>

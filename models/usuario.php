@@ -5,7 +5,7 @@ class Usuario
     public $name;
     public $password;
     public $login;
-    public $cod;
+    public $usuario_id = [];
 
     public function __construct($db)
     {
@@ -14,9 +14,11 @@ class Usuario
 
     public function criarUsuario($conn)
     {
+        $profile_id = $_POST['profile_id'];
+
         $query = "INSERT INTO tab_usuario (per_codigo, usu_nome, usu_senha, usu_login_acesso) VALUES (:cod, :name, :password, :login)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':cod', $this->cod);
+        $stmt->bindParam(':cod', $profile_id);
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':login', $this->login);

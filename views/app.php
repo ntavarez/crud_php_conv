@@ -4,7 +4,6 @@ require_once '../models/Usuario.php';
 
 $database = new BD();
 $db = $database->conexao();
-
 $id = 0;
 
 $user = new Usuario(db: $db);
