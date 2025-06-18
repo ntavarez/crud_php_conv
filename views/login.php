@@ -15,16 +15,17 @@ if (isset($_POST["login"]) && isset($_POST["password"])) {
     $id = $user->buscarUsuario();
 }
 
-$stmt = $db->prepare("SELECT COUNT(*) FROM tab_usuario WHERE usu_login_acesso = :login");
+$stmt = $db->prepare("SELECT * FROM tab_usuario WHERE usu_login_acesso = :login");
 $stmt->bindParam(':login', $user->login);
 $stmt->execute();
 
-$count = $stmt->fetchColumn();
+//$count = $stmt->fetchColumn();
+$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($count < 0) {
-    echo 'Usuário não existe! Favor realizar o cadastro.';
-    header('app.php');
-}
+//if ($count < 0) {
+    //echo 'Usuário não existe! Favor realizar o cadastro.';
+    //header('app.php');
+//}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -64,6 +65,10 @@ if ($count < 0) {
 
 <body>
     <h2>Bem-vindo!</h2>
+    <h3> O que você deseja fazer?</h3>
+    <!--
+    <a href="editar.php?id=<?= $usuario['id'] ?>">Alterar um usuário</a>
+    <a href="deletar.php?id=<?= $usuario['id'] ?>">Deletar um usuário</a>-->
 
     <table border="1">
         <thead>
@@ -77,9 +82,9 @@ if ($count < 0) {
         <tbody>
             <?php foreach ($usuarios as $usuario): ?>
                 <tr>
-                    <td><?= htmlspecialchars($usuario['id']) ?></td>
-                    <td><?= htmlspecialchars($usuario['nome']) ?></td>
-                    <td><?= htmlspecialchars($usuario['email']) ?></td>
+                    <td><?= htmlspecialchars($usuario['usu_codigo']) ?></td>
+                    <td><?= htmlspecialchars($usuario['usu_nome']) ?></td>
+                    <td><?= htmlspecialchars($usuario['usu_login_acesso']) ?></td>
                     <td>
                         <a href="editar.php?id=<?= $usuario['id'] ?>">Alterar</a> |
                         <a href="deletar.php?id=<?= $usuario['id'] ?>">Deletar</a>
