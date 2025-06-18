@@ -26,9 +26,10 @@ CREATE TABLE IF NOT EXISTS `tab_usuario` (
   CONSTRAINT `per_codigo` FOREIGN KEY (`per_codigo`) REFERENCES `tab_perfil` (`per_codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
--- Copiando dados para a tabela usuarios.tab_usuario: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela usuarios.tab_usuario: ~2 rows (aproximadamente)
 INSERT IGNORE INTO `tab_usuario` (`usu_codigo`, `per_codigo`, `usu_nome`, `usu_senha`, `usu_login_acesso`) VALUES
-	(3, 11, 'Gabriel ', '123456', 'gabriel.pantene');
+	(3, 11, 'Gabriel ', '123456', 'gabriel.pantene'),
+	(13, 12, 'Rafael', '1234567', 'rafael');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
