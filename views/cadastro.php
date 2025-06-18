@@ -90,7 +90,7 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <form action="app.php" method="POST">
+    <form action="login.php" method="POST">
         <h2>Cadastro de Usuário</h2>
 
         <label for="name">Nome:</label>

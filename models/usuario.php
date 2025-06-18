@@ -12,7 +12,7 @@ class Usuario
         $this->conn = $db;
     }
 
-    public function criarUsuario($conn)
+    public function criarUsuario($conn, $profile)
     {
         $profile_id = $_POST['profile_id'];
 
@@ -35,7 +35,7 @@ class Usuario
 
     public function buscarUsuario()
     {
-        $query = "SELECT * FROM tab_usuario WHERE usu_acesso_login = :login";
+        $query = "SELECT usu_codigo FROM tab_usuario WHERE usu_login_acesso = :login";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':login', $this->login);
 
@@ -65,6 +65,25 @@ class Usuario
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    }
+
+    public function validarSenha(){
+        $query = "SELECT usu_senha FROM tab_usuario WHERE usu_login_acesso = :login";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':login', $this->login);
+
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($this->password == $usuario['usu_senha']) {
+            header("Location: home.php");
+        } else {
+            echo "Usuário ou senha incorreta!";
+            header("Location: login.php");
+        }
+    }
+
+    public function validarNomePorId($id){
+
     }
 }
 ?>
