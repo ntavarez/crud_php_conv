@@ -17,7 +17,10 @@ if (isset($_POST["login"]) && isset($_POST["password"])) {
     $user->name = $name;
 
     if ($id == null || $id == "") {
-        $user->criarUsuario();
+        echo "<script>alert('Usuário não encontrado, favor realizar o cadastro!');</script>";
+        header('Location: cadastro.php');
+
+        //$user->criarUsuario();
     } else {
         $stmt = $db->prepare("SELECT * FROM tab_usuario WHERE usu_login_acesso = :login AND usu_senha = :password");
         $stmt->bindParam(':login', $user->login);
