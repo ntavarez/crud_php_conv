@@ -8,13 +8,14 @@ $user = new Usuario($db);
 //$user->name = $_POST["name"];
 $usuarios = [];
 
-if (isset($_POST["username"]) && isset($_POST["password"])) {
+/*if (isset($_POST["login"]) && isset($_POST["password"])) {
     $user->password = $_POST["password"];
-    $user->login = $_POST["username"];
-    $id = $user->buscarUsuario();
+    $user->login = $_POST["login"];
+
+    $id = $user->buscarUsuario($user->login);
 
     if ($id == null || $id == "") {
-        $user->criarUsuario($db);
+        $user->criarUsuario();
     } else {
         $stmt = $db->prepare("SELECT * FROM tab_usuario WHERE usu_login_acesso = :login AND usu_senha = :password");
         $stmt->bindParam(':login', $user->login);
@@ -24,13 +25,11 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$usuarios) {
-            echo "Usuário ou senha incorretos, favor tentar novamente!";
-            header('login.php');
-        } else {
-            header('home.php');
+            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
+            header('Location: login.php');
         }
     }
-}
+}*/
 
 ?>
 <!DOCTYPE html>

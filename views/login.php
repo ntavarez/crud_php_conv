@@ -13,10 +13,10 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
     $user->password = $_POST["password"];
     $user->login = $_POST["login"];
     $profile = $_POST["profile_id"];
-    $id = $user->buscarUsuario();
+    $id = $user->buscarUsuario($user->login);
 
     if ($id == null || $id == "") {
-        $user->criarUsuario($db, $profile);
+        $user->criarUsuario();
     } else {
         $stmt = $db->prepare("SELECT * FROM tab_usuario WHERE usu_login_acesso = :login AND usu_senha = :password");
         $stmt->bindParam(':login', $user->login);
@@ -26,10 +26,11 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
         $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$usuarios) {
-            echo "Usuário ou senha incorretos, favor tentar novamente!";
-            header('login.php');
+            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
+            header('Location: login.php');
         } else {
-            header('home.php');
+            header('Location: home.php');
+
         }
     }
 }
@@ -134,8 +135,8 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
         <h2>Login</h2>
         <form action="home.php" method="POST">
             <div class="input-group">
-                <label for="username">Usuário:</label>
-                <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+                <label for="login">Usuário:</label>
+                <input type="text" id="login" name="login" placeholder="Digite seu usuário" required>
             </div>
             <div class="input-group">
                 <label for="password">Senha:</label>

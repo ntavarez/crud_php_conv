@@ -3,7 +3,7 @@ class BD {
     private $host = 'localhost';
     private $db = 'usuarios';
     private $user = 'root';
-    private $password = '';
+    private $password = 'root';
     public $conn;
 
     public function conexao() {

@@ -5,7 +5,7 @@ $database = new BD();
 $db = $database->conexao();
 $stmt = $db->query("SELECT per_codigo, per_descricao FROM tab_perfil");
 
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -105,9 +105,9 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <label for="profile">Selecione um perfil:</label>
         <select name="profile_id" id="profile">
             <option value="">--Opções--</option>
-            <?php foreach ($usuarios as $usuario): ?>
-            <option value="<?= $usuario['per_codigo']?>">
-                <?= htmlspecialchars( $usuario['per_descricao'])?>
+            <?php foreach ($profiles as $profile): ?>
+            <option value="<?= $profile['per_codigo']?>">
+                <?= htmlspecialchars( $profile['per_descricao'])?>
             </option>
             <?php endforeach; ?>
         </select>
