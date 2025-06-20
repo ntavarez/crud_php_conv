@@ -17,21 +17,6 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
 
     if ($id == null || $id == "") {
         $user->criarUsuario();
-    } else {
-        $stmt = $db->prepare("SELECT * FROM tab_usuario WHERE usu_login_acesso = :login AND usu_senha = :password");
-        $stmt->bindParam(':login', $user->login);
-        $stmt->bindParam(':password', $user->password);
-        $stmt->execute();
-
-        $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if (!$usuarios) {
-            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
-            header('Location: login.php');
-        } else {
-            header('Location: home.php');
-
-        }
     }
 }
 ?>

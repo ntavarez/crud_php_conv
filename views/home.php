@@ -8,11 +8,13 @@ $user = new Usuario($db);
 //$user->name = $_POST["name"];
 $usuarios = [];
 
-/*if (isset($_POST["login"]) && isset($_POST["password"])) {
+if (isset($_POST["login"]) && isset($_POST["password"])) {
     $user->password = $_POST["password"];
     $user->login = $_POST["login"];
 
     $id = $user->buscarUsuario($user->login);
+    $name = $user->validarNomePorId($id);
+    $user->name = $name;
 
     if ($id == null || $id == "") {
         $user->criarUsuario();
@@ -23,13 +25,12 @@ $usuarios = [];
         $stmt->execute();
 
         $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         if (!$usuarios) {
-            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
             header('Location: login.php');
+            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
         }
     }
-}*/
+}
 
 ?>
 <!DOCTYPE html>
@@ -70,12 +71,12 @@ $usuarios = [];
 
 <body>
     <h2>Bem-vindo, <?= $user->name?>!</h2>
-    <h3> O que você deseja fazer?</h3>
+    <h3>Pesquise um usuário e selecione qual operação deseja realizar.</h3>
     <!--
     <a href="editar.php?id=<?= $usuario['id'] ?>">Alterar um usuário</a>
     <a href="deletar.php?id=<?= $usuario['id'] ?>">Deletar um usuário</a>-->
 
-    <table border="1">
+    <!--<table border="1">
         <thead>
             <tr>
                 <th>ID</th>
@@ -100,7 +101,7 @@ $usuarios = [];
     </table>
 
     <br>
-    <a href="cadastro.html">Cadastrar Novo Usuário</a>
+    <a href="cadastro.html">Cadastrar Novo Usuário</a>-->
 </body>
 
 </html>
