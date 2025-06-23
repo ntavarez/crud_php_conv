@@ -24,14 +24,6 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
         $stmt->execute();
 
         $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if (!$usuarios) {
-            echo "<script>alert('Usuário ou senha incorretos, favor tentar novamente!');</script>";
-            header('Location: login.php');
-        } else {
-            header('Location: home.php');
-
-        }
     }
 }
 ?>
@@ -133,7 +125,7 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="home.php" method="POST">
+        <form id="formLogin" action="home.php" method="POST">
             <div class="input-group">
                 <label for="login">Usuário:</label>
                 <input type="text" id="login" name="login" placeholder="Digite seu usuário" required>
@@ -147,5 +139,39 @@ if (isset($_POST["name"]) && isset($_POST["password"]) && isset($_POST["login"])
         </form>
     </div>
 </body>
+<script>
+    const form = document.getElementById('formLogin');
+    const usuarioInput = document.getElementById('login');
+    const mensagem = document.getElementById('mensagem');
 
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const usuario = usuarioInput.value;
+
+        try {
+            const response = await fetch('/api/verificar-usuario.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario })
+            });
+
+            const data = await response.json();
+
+            if (data.exists) {
+                mensagem.textContent = 'Este nome de usuário já existe.';
+                mensagem.className = 'error';
+            } else {
+                mensagem.textContent = 'Usuário disponível!';
+                mensagem.className = 'success';
+                // Aqui você pode enviar o formulário ou chamar outra função
+            }
+
+        } catch (error) {
+            console.error('Erro:', error);
+            mensagem.textContent = 'Erro ao verificar o usuário.';
+            mensagem.className = 'error';
+        }
+    });
+</script>
 </html>
