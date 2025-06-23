@@ -87,15 +87,13 @@ class Usuario
     public function validarNomePorId($id){
         $query = "SELECT usu_nome FROM tab_usuario WHERE usu_codigo = :cod";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':cod', $this->$id);
+        $stmt->bindParam(':cod', $id);
+        $stmt->execute();
 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        if ($this->password == $usuario['usu_senha']) {
-            header("Location: home.php");
-        } else {
-            echo "Usuário ou senha incorreta!";
-            header("Location: login.php");
+        if($usuario){
+            return $usuario['usu_nome'];
         }
     }
 }
